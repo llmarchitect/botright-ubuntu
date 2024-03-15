@@ -194,7 +194,7 @@ class Botright(AsyncObject):
         Extend the search for Ungoogled Chromium across common and custom installation paths.
 
         Returns:
-            Browser: The selected browser engine.
+            Browser: The selected browser engine from the `browsers.get` call.
         Raises:
             EnvironmentError: If no Chromium based browser is found.
         """
@@ -216,13 +216,13 @@ class Botright(AsyncObject):
         uc_path = find_executable(ungoogled_chromium_paths)
         if uc_path:
             print("Ungoogled Chromium found at:", uc_path)
-            return Browser("Ungoogled Chromium", uc_path)
+            return browsers.get("ungoogled-chromium")
 
         # Fallback to standard Chromium
         chromium_path = find_executable(chromium_paths)
         if chromium_path:
             print("Chromium found at:", chromium_path)
-            return Browser("Chromium", chromium_path)
+            return browsers.get("chromium")
 
         # If neither are found, print a warning and attempt other browsers or raise an error
         print("\033[1;33;48m[WARNING] Ungoogled Chromium or Chromium not found. Recommended for Canvas Manipulation. Download at https://ungoogled-software.github.io/ungoogled-chromium-binaries/ \033[0m")
