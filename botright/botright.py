@@ -189,30 +189,44 @@ class Botright(AsyncObject):
                     pass
 
     @staticmethod
-    def get_browser_engine() -> browsers.Browser:
+    def get_browser_engine() -> Browser:
         """
-        Get the browser engine based on Chromium to use for Playwright based on system availability.
-        If available, prefers Ungoogled Chromium for stealthier browsing.
+        Extend the search for Ungoogled Chromium across common and custom installation paths.
 
         Returns:
-            browsers.Browser: The selected browser engine.
+            Browser: The selected browser engine.
         Raises:
-            EnvironmentError: If no Chromium based browser is found on the system.
+            EnvironmentError: If no Chromium based browser is found.
         """
-        # Ungoogled Chromium preferred (most stealthy)
-        if chromium := browsers.get("chromium"):
-            return chromium
-        print("\033[1;33;48m[WARNING] Ungoogled Chromium not found. Recommended for Canvas Manipulation. Download at https://ungoogled-software.github.io/ungoogled-chromium-binaries/ \033[0m")
+        # Paths to search for Ungoogled Chromium and standard Chromium
+        ungoogled_chromium_paths = [
+            "/opt/ungoogled-chromium/chrome",
+            "/usr/bin/ungoogled-chromium",
+            "/usr/local/bin/ungoogled-chromium",
+            # Add other common paths where Ungoogled Chromium might be installed
+        ]
 
-        # Chrome preferred (much stealthier)
-        if chrome := browsers.get("chrome"):
-            return chrome
+        chromium_paths = [
+            "/usr/bin/chromium",
+            "/usr/local/bin/chromium",
+            # Add other common paths for standard Chromium
+        ]
 
-        not_supported = ["firefox", "msie", "opera", "msedge"]
-        for browser_engine in browsers.browsers():
-            if browser_engine["browser_type"] not in not_supported:
-                return browser_engine
+        # Try Ungoogled Chromium first
+        uc_path = find_executable(ungoogled_chromium_paths)
+        if uc_path:
+            print("Ungoogled Chromium found at:", uc_path)
+            return Browser("Ungoogled Chromium", uc_path)
 
+        # Fallback to standard Chromium
+        chromium_path = find_executable(chromium_paths)
+        if chromium_path:
+            print("Chromium found at:", chromium_path)
+            return Browser("Chromium", chromium_path)
+
+        # If neither are found, print a warning and attempt other browsers or raise an error
+        print("\033[1;33;48m[WARNING] Ungoogled Chromium or Chromium not found. Recommended for Canvas Manipulation. Download at https://ungoogled-software.github.io/ungoogled-chromium-binaries/ \033[0m")
+        
         raise EnvironmentError("No Chromium based browser found")
 
     @staticmethod
