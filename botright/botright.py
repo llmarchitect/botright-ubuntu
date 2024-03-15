@@ -227,7 +227,7 @@ class Botright(AsyncObject):
         # If neither are found, print a warning and attempt other browsers or raise an error
         print("\033[1;33;48m[WARNING] Ungoogled Chromium or Chromium not found. Recommended for Canvas Manipulation. Download at https://ungoogled-software.github.io/ungoogled-chromium-binaries/ \033[0m")
         
-        raise EnvironmentError("No Chromium based browser found")
+        raise EnvironmentError("No Chromium based browser found2")
 
     @staticmethod
     def delete_botright_temp_dirs() -> None:
