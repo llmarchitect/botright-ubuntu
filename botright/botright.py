@@ -226,17 +226,22 @@ class Botright(AsyncObject):
         # Try Ungoogled Chromium first
         uc_path = Botright.find_executable(ungoogled_chromium_paths)
         if uc_path:
-            raise EnvironmentError("FOUND UNGOOGLED CHROMIUM")
-            print("Ungoogled Chromium found at:", uc_path)
-            return browsers.get("ungoogled-chromium")
+            browser = browsers.get("chromium", uc_path)
+            if not browser:
+                raise EnvironmentError(f"No clue: {browser}")
+
+            return browser
 
         # Fallback to standard Chromium
         chromium_path = Botright.find_executable(chromium_paths)
         if chromium_path:
-            raise EnvironmentError("FOUND CHROMIUM")
-            print("Chromium found at:", chromium_path)
-            return browsers.get("chromium")
+            browser = browsers.get("chromium", chromium_path)
+            if not browser:
+                raise EnvironmentError(f"No clue2: {browser}")
 
+            return browser
+        
+        raise EnvironmentError(f"No clue3: {list(browsers.browsers())}")
         # If neither are found, print a warning and attempt other browsers or raise an error
         print("\033[1;33;48m[WARNING] Ungoogled Chromium or Chromium not found. Recommended for Canvas Manipulation. Download at https://ungoogled-software.github.io/ungoogled-chromium-binaries/ \033[0m")
         
