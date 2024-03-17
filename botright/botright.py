@@ -212,12 +212,12 @@ class Botright(AsyncObject):
 
 
         # Try Ungoogled Chromium first
-        browser = browsers.get("ungoogled-chromium", uc_path)
+        browser = browsers.get("ungoogled-chromium")
         if browser:
             return browser
 
         # Fallback to standard Chromium
-        browsers.get("chromium", chromium_path)
+        browsers.get("chromium")
         if browser:
             return browser
         
