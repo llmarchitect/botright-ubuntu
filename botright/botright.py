@@ -228,7 +228,7 @@ class Botright(AsyncObject):
         if uc_path:
             browser = browsers.get("chromium", uc_path)
             if not browser:
-                raise EnvironmentError(f"No clue: {browser}")
+                raise EnvironmentError(f"No clue: {list(browsers.browsers())}")
 
             return browser
 
@@ -237,7 +237,7 @@ class Botright(AsyncObject):
         if chromium_path:
             browser = browsers.get("chromium", chromium_path)
             if not browser:
-                raise EnvironmentError(f"No clue2: {browser}")
+                raise EnvironmentError(f"No clue2: {list(browsers.browsers())}")
 
             return browser
         
