@@ -124,10 +124,13 @@ class Botright(AsyncObject):
         self.temp_dirs: List[TemporaryDirectory] = []  # type: ignore
 
         if spoof_canvas and self.mask_fingerprint:
-            if self.browser["browser_type"] != "chromium":
-                self.flags.append("--disable-reading-from-canvas")
-            else:
-                self.flags.append("--fingerprinting-canvas-image-data-noise")
+            print(f"Browser object: {self.browser}")
+            print(self.browser["browser_type"])
+            if self.browser:
+                if self.browser["browser_type"] != "chromium":
+                    self.flags.append("--disable-reading-from-canvas")
+                else:
+                    self.flags.append("--fingerprinting-canvas-image-data-noise")
 
         self.fingerprint_generator = AsyncFingerprintGenerator()
 
