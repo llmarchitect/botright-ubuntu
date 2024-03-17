@@ -226,12 +226,14 @@ class Botright(AsyncObject):
         # Try Ungoogled Chromium first
         uc_path = Botright.find_executable(ungoogled_chromium_paths)
         if uc_path:
+            raise EnvironmentError("FOUND UNGOOGLED CHROMIUM")
             print("Ungoogled Chromium found at:", uc_path)
             return browsers.get("ungoogled-chromium")
 
         # Fallback to standard Chromium
         chromium_path = Botright.find_executable(chromium_paths)
         if chromium_path:
+            raise EnvironmentError("FOUND CHROMIUM")
             print("Chromium found at:", chromium_path)
             return browsers.get("chromium")
 
