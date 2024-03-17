@@ -188,6 +188,7 @@ class Botright(AsyncObject):
                 except Exception:
                     pass
 
+    @staticmethod
     def find_executable(paths: list[str]) -> Optional[str]:
         """Return the first path which contains an executable file, or None."""
         for path in paths:
