@@ -209,36 +209,16 @@ class Botright(AsyncObject):
         Raises:
             EnvironmentError: If no Chromium based browser is found.
         """
-        # Paths to search for Ungoogled Chromium and standard Chromium
-        ungoogled_chromium_paths = [
-            "/opt/ungoogled-chromium/chrome",
-            "/usr/bin/ungoogled-chromium",
-            "/usr/local/bin/ungoogled-chromium",
-            # Add other common paths where Ungoogled Chromium might be installed
-        ]
 
-        chromium_paths = [
-            "/usr/bin/chromium",
-            "/usr/local/bin/chromium",
-            # Add other common paths for standard Chromium
-        ]
 
         # Try Ungoogled Chromium first
-        uc_path = Botright.find_executable(ungoogled_chromium_paths)
-        if uc_path:
-            browser = browsers.get("ungoogled-chromium", uc_path)
-            if not browser:
-                raise EnvironmentError(f"No clue: {list(browsers.browsers())}")
-
+        browser = browsers.get("ungoogled-chromium", uc_path)
+        if browser:
             return browser
 
         # Fallback to standard Chromium
-        chromium_path = Botright.find_executable(chromium_paths)
-        if chromium_path:
-            browser = browsers.get("chromium", chromium_path)
-            if not browser:
-                raise EnvironmentError(f"No clue2: {list(browsers.browsers())}")
-
+        browsers.get("chromium", chromium_path)
+        if browser:
             return browser
         
         raise EnvironmentError(f"No clue3: {list(browsers.browsers())}")
