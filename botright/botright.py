@@ -226,7 +226,7 @@ class Botright(AsyncObject):
         # Try Ungoogled Chromium first
         uc_path = Botright.find_executable(ungoogled_chromium_paths)
         if uc_path:
-            browser = browsers.get("chromium", uc_path)
+            browser = browsers.get("ungoogled-chromium", uc_path)
             if not browser:
                 raise EnvironmentError(f"No clue: {list(browsers.browsers())}")
 
