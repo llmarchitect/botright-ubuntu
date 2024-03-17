@@ -217,7 +217,7 @@ class Botright(AsyncObject):
             return browser
 
         # Fallback to standard Chromium
-        browsers.get("chromium")
+        browser = browsers.get("chromium")
         if browser:
             return browser
         
